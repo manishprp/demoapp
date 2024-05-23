@@ -3,15 +3,16 @@ import {StyleSheet, View} from 'react-native';
 import {
   Button,
   ClickableRoundImage,
+  Screen,
   Text,
   TextInput,
-  Screen,
 } from '../components';
-import {color, strings, assets} from '../config';
+import {assets, color, strings} from '../config';
 
+import AppGoogleSignIn from '../auth/AppGoogleSignIn';
 function LoginScreen() {
   return (
-    <Screen style={styles.container}>
+    <Screen style={styles.container} isScrollable>
       <Text style={styles.title}>{strings.LOGIN}</Text>
       <TextInput placeholder={strings.USERNAME} />
       <TextInput placeholder={strings.PASSWORD} secureTextEntry />
@@ -19,7 +20,16 @@ function LoginScreen() {
       <Text style={styles.optionText}>{strings.orLoginWith}</Text>
       <View style={styles.optionsContainer}>
         <View style={styles.space} />
-        <ClickableRoundImage image={assets.googleIcon} />
+        <ClickableRoundImage
+          image={assets.googleIcon}
+          onPress={async () => {
+            try {
+              await AppGoogleSignIn();
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        />
         <View style={styles.space} />
         <ClickableRoundImage image={assets.metaIcon} />
         <View style={styles.space} />
@@ -32,6 +42,7 @@ function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
   },

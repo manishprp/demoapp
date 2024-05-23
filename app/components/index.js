@@ -3,3 +3,4 @@ export {default as Text} from './AppText';
 export {default as TextInput} from './AppTextInput';
 export {default as ClickableRoundImage} from './ClickableRoundImage';
 export {default as Screen} from './Screen';
+export {default as TTT} from './AppTextInput';
