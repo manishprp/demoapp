@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   contentContainerStyle: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

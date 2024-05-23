@@ -1,26 +1,18 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {
-  Button,
-  ClickableRoundImage,
-  Screen,
-  Text,
-  TextInput,
-} from '../components';
-import {assets, color, strings} from '../config';
+import {StyleSheet} from 'react-native';
+import {Button, Screen, Text, TextInput} from '../components';
+import {color, strings} from '../config';
 
-import AppGoogleSignIn from '../auth/AppGoogleSignIn';
-import BetweenLines from '../components/BetweenLines';
 import ClickableText from '../components/ClickableText';
-function LoginScreen() {
+function RegisterScreen() {
   return (
     <Screen style={styles.container} isScrollable>
-      <Text style={styles.title}>{strings.LOGIN}</Text>
+      <Text style={styles.title}>{strings.REGISTER}</Text>
       <TextInput placeholder={strings.USERNAME} />
       <TextInput placeholder={strings.PASSWORD} secureTextEntry />
-      <Button title={strings.LOGIN} />
-      <BetweenLines text={strings.orLoginWith} />
-      <View style={styles.optionsContainer}>
+      <Button title={strings.REGISTER} />
+      {/* <BetweenLines text={strings.orLoginWith} /> */}
+      {/* <View style={styles.optionsContainer}>
         <View style={styles.space} />
         <ClickableRoundImage
           image={assets.googleIcon}
@@ -33,10 +25,10 @@ function LoginScreen() {
         <View style={styles.space} />
         <ClickableRoundImage image={assets.appleIcon} />
         <View style={styles.space} />
-      </View>
+      </View> */}
       <ClickableText
         style={styles.text}
-        nonClickableText={`Don't have an`}
+        nonClickableText={`Already have an`}
         clickableText={'account?'}
       />
     </Screen>
@@ -48,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
+    width: '100%',
   },
   optionsContainer: {
     width: '100%',
@@ -64,4 +57,4 @@ const styles = StyleSheet.create({
   },
   text: {position: 'absolute', bottom: 10, alignSelf: 'center'},
 });
-export default LoginScreen;
+export default RegisterScreen;

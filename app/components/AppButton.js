@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     padding: 15,
     overflow: 'hidden',
   },
-  text: {color: colors.white},
+  text: {color: colors.white, fontSize: 20},
 });
 export default AppButton;
