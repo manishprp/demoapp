@@ -4,6 +4,7 @@ import listings from '../api/listings';
 import CardItem from '../components/CardItem';
 import {color} from '../config';
 import useApi from '../hooks/useApi';
+import AppActivityIndicator from '../components/AppActivityIndicator';
 
 _renderItem = ({item}) => <CardItem item={item} />;
 
@@ -14,12 +15,15 @@ function ProductsList(props) {
     request: getProductsList,
     loading,
   } = useApi(listings.getProductList);
+
   useEffect(() => {
     getProductsList('smartphones');
   }, []);
+
   if (loading) {
-    return null;
+    return <AppActivityIndicator />;
   }
+
   return (
     <FlatList
       style={{width: '100%'}}

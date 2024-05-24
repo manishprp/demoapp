@@ -1,26 +1,53 @@
 import React from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 import colors from '../config/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 
-function AppTextInput({placeholder, style, ...textInputProps}) {
+function AppTextInput({
+  placeholder,
+  style: textStyle,
+  containeStyle,
+  suffixIcon,
+  iconColor = colors.secondary,
+  iconSize = 35,
+  ...textInputProps
+}) {
   return (
-    <TextInput
-      {...textInputProps}
-      placeholder={placeholder}
-      style={[styles.text, style]}
-    />
+    <View style={[styles.container, containeStyle]}>
+      {suffixIcon && (
+        <MaterialCommunityIcons
+          name={suffixIcon}
+          size={iconSize}
+          color={iconColor}
+        />
+      )}
+      <TextInput
+        on
+        {...textInputProps}
+        placeholder={placeholder}
+        style={[styles.text, textStyle]}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    marginBottom: 30,
-    backgroundColor: colors.medium,
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
     borderRadius: 30,
+    backgroundColor: colors.medium,
+    flexDirection: 'row',
+  },
+  text: {
+    flex: 1,
+    backgroundColor: colors.medium,
+
     color: colors.black,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     fontSize: 20,
-    padding: 15,
   },
 });
 export default AppTextInput;

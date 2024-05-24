@@ -12,13 +12,18 @@ import {assets, color, strings} from '../config';
 import AppGoogleSignIn from '../auth/AppGoogleSignIn';
 import BetweenLines from '../components/BetweenLines';
 import ClickableText from '../components/ClickableText';
-function LoginScreen() {
+function LoginScreen({navigation}) {
   return (
     <Screen style={styles.container} isScrollable>
       <Text style={styles.title}>{strings.LOGIN}</Text>
       <TextInput placeholder={strings.USERNAME} />
       <TextInput placeholder={strings.PASSWORD} secureTextEntry />
-      <Button title={strings.LOGIN} />
+      <Button
+        title={strings.LOGIN}
+        onPress={() => {
+          navigation.navigate(strings.DASHBOARD);
+        }}
+      />
       <BetweenLines text={strings.orLoginWith} />
       <View style={styles.optionsContainer}>
         <View style={styles.space} />
@@ -35,6 +40,9 @@ function LoginScreen() {
         <View style={styles.space} />
       </View>
       <ClickableText
+        onPress={() => {
+          navigation.navigate(strings.REGISTER);
+        }}
         style={styles.text}
         nonClickableText={`Don't have an`}
         clickableText={'account?'}

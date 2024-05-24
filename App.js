@@ -1,17 +1,20 @@
+import {NavigationContainer, useTheme} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
+import 'react-native-gesture-handler';
 import SplashScreen from 'react-native-splash-screen';
-import LoginScreen from './app/screen/LoginScreen';
-import RegisterScreen from './app/screen/RegisterScreen';
-import CategoriesScreen from './app/screen/CategoriesScreen';
-import ProductsList from './app/screen/ProductsList';
-import SearchScreen from './app/screen/SearchScreen';
+import AppNavigator from './app/navigator/AppNavigator';
+import theme from './app/navigator/NavigationTheme';
 
 function App(props) {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-  return <SearchScreen />;
+  return (
+    <NavigationContainer theme={theme}>
+      <AppNavigator />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import {Text} from '../components';
 import {color} from '../config';
 import listing from '../api/listings';
 import useApi from '../hooks/useApi';
+import AppActivityIndicator from '../components/AppActivityIndicator';
 
 _renderItem = ({item}) => (
   <TouchableOpacity style={{flex: 1}} onPress={() => console.log(item)}>
@@ -24,6 +25,10 @@ function CategoriesScreen(props) {
   useEffect(() => {
     loadLostring();
   });
+
+  if (loading) {
+    return <AppActivityIndicator />;
+  }
 
   return (
     <FlatList

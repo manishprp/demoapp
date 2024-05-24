@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {color} from '../config';
 function SearchBox({whileChange = () => {}, placeholder = 'Search', onSubmit}) {
   const [show, setShow] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(false);
   const _showHideDeleteButton = newText => {
     if (newText.length === 0) {
       setShow(false);
