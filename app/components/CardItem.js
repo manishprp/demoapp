@@ -5,7 +5,13 @@ import {color} from '../config';
 function CardItem({item}) {
   return (
     <View style={styles.card}>
-      <Image style={styles.image} source={{uri: item?.images[0]}} />
+      {item?.images[0] && (
+        <Image
+          resizeMode={'contain'}
+          style={styles.image}
+          source={{uri: item?.images[0]}}
+        />
+      )}
       <Text style={styles.title}>
         {item?.brand} : {item?.title}
       </Text>
@@ -32,9 +38,9 @@ const styles = StyleSheet.create({
   image: {
     overflow: 'hidden',
     alignSelf: 'center',
-    aspectRatio: 1.8,
-    height: 200,
     width: '100%',
+    height: undefined,
+    aspectRatio: 1,
   },
   title: {
     fontSize: 20,
