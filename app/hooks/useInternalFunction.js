@@ -1,20 +1,19 @@
 import {useState} from 'react';
 
-function useApi(apiFunc) {
+function useInternalFunction(internalFunction) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const request = async (...props) => {
     setLoading(true);
-    const response = await apiFunc(...props);
+    const response = await internalFunction(...props);
     setLoading(false);
-    if (!response?.ok) {
-      return setError(true);
-    }
-    setError(false);
-    setData(response.data);
+
+    setError(!response.success);
+
+    setData(response.value);
   };
   return {request, data, loading, error};
 }
 
-export default useApi;
+export default useInternalFunction;

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   price: {
     marginTop: 10,
     fontSize: 18,
-    color: 'blue',
+    color: color.secondary,
     fontWeight: '600',
   },
 });

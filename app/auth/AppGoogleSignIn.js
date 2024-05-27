@@ -2,40 +2,36 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {useEffect} from 'react';
 import AuthConstants from './AuthConstants';
+import ResponseObject from '../utility/ResponseObject';
+import auth from '@react-native-firebase/auth';
+import {StoreValue} from '../utility/LocalStorage';
 
 const signin = async () => {
+  let answer = ResponseObject();
   try {
-    console.log('GoogleSignin', GoogleSignin);
-
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     await GoogleSignin.signOut();
     const userInfo = await GoogleSignin.signIn();
-    console.log('userInfo', userInfo);
     const googleCredential = auth.GoogleAuthProvider.credential(
       userInfo.idToken,
     );
-    console.log('googleCredential', googleCredential);
 
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
-
-    //setState({userInfo});
+    auth().signInWithCredential(googleCredential);
+    answer = await StoreValue('token', googleCredential?.token, true);
   } catch (error) {
+    answer.success = false;
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      console.log('user cancelled the login flow');
-      // user cancelled the login flow
+      answer.message = 'user cancelled the login flow';
     } else if (error.code === statusCodes.IN_PROGRESS) {
-      console.log('operation (e.g. sign in) is in progress already');
-      // operation (e.g. sign in) is in progress already
+      answer.message = 'operation (e.g. sign in) is in progress already';
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      console.log(' play services not available or outdated');
-      // play services not available or outdated
+      answer.message = 'play services not available or outdated';
     } else {
-      // some other error happened
-      console.log('some other error happened', error);
+      answer.message = 'some other error happened';
     }
+  } finally {
+    return answer;
   }
 };
 
@@ -45,7 +41,7 @@ async function AppGoogleSignIn() {
     offlineAccess: true,
   });
 
-  const data = await signin();
+  return await signin();
 }
 
 export default AppGoogleSignIn;

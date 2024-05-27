@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import colors from '../config/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import colors from '../config/colors';
 
 function AppTextInput({
   placeholder,
@@ -11,6 +10,7 @@ function AppTextInput({
   suffixIcon,
   iconColor = colors.secondary,
   iconSize = 35,
+
   ...textInputProps
 }) {
   return (
@@ -23,7 +23,6 @@ function AppTextInput({
         />
       )}
       <TextInput
-        on
         {...textInputProps}
         placeholder={placeholder}
         style={[styles.text, textStyle]}

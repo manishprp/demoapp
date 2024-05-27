@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   Button,
@@ -9,19 +9,51 @@ import {
 } from '../components';
 import {assets, color, strings} from '../config';
 
-import AppGoogleSignIn from '../auth/AppGoogleSignIn';
+import {
+  loginNormal,
+  loginWithGoogle,
+  alreadyLoggedIn,
+} from '../auth/Authenticate';
 import BetweenLines from '../components/BetweenLines';
 import ClickableText from '../components/ClickableText';
 function LoginScreen({navigation}) {
+  const _alreadyLoggedIn = async () => {
+    const ans = await alreadyLoggedIn();
+    if (ans) {
+      navigation.navigate(strings.DASHBOARD);
+    }
+  };
+  useEffect(() => {
+    _alreadyLoggedIn();
+  }, []);
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
   return (
     <Screen style={styles.container} isScrollable>
       <Text style={styles.title}>{strings.LOGIN}</Text>
-      <TextInput placeholder={strings.USERNAME} />
-      <TextInput placeholder={strings.PASSWORD} secureTextEntry />
+      <TextInput
+        placeholder={strings.USERNAME}
+        onChangeText={newText => {
+          setUsername(newText);
+        }}
+        value={username}
+      />
+      <TextInput
+        placeholder={strings.PASSWORD}
+        secureTextEntry
+        value={password}
+        onChangeText={newText => {
+          setPassword(newText);
+        }}
+      />
       <Button
         title={strings.LOGIN}
-        onPress={() => {
-          navigation.navigate(strings.DASHBOARD);
+        onPress={async () => {
+          const res = await loginNormal({username, password});
+          if (res.success) {
+            navigation.navigate(strings.DASHBOARD);
+          }
         }}
       />
       <BetweenLines text={strings.orLoginWith} />
@@ -30,7 +62,11 @@ function LoginScreen({navigation}) {
         <ClickableRoundImage
           image={assets.googleIcon}
           onPress={async () => {
-            await AppGoogleSignIn();
+            const res = await loginWithGoogle();
+
+            if (res.success) {
+              navigation.navigate(strings.DASHBOARD);
+            }
           }}
         />
         <View style={styles.space} />

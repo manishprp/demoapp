@@ -9,6 +9,7 @@ import ProductsList from '../screen/ProductsList';
 import SearchScreen from '../screen/SearchScreen';
 import {Text} from '../components';
 import {View} from 'react-native';
+import {logout} from '../auth/Authenticate';
 
 const Drawer = createDrawerNavigator();
 
@@ -32,8 +33,9 @@ function DrawerNavigator() {
             />
             <DrawerItem
               label={'Logout'}
-              onPress={() => {
-                props.navigation.navigate(strings.LOGIN);
+              onPress={async () => {
+                const loggedOut = await logout();
+                if (loggedOut) props.navigation.navigate(strings.LOGIN);
               }}
             />
           </DrawerContentScrollView>
