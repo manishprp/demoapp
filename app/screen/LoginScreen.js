@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {
-  Button,
-  ClickableRoundImage,
-  Screen,
-  Text,
-  TextInput,
-} from '../components';
+import {ClickableRoundImage, Screen, Text} from '../components';
+
+import FormTextInput from '../components/AppFormComponents/FormTextInput';
 import {assets, color, strings} from '../config';
 
+import {object, string} from 'yup';
 import {
+  alreadyLoggedIn,
   loginNormal,
   loginWithGoogle,
-  alreadyLoggedIn,
 } from '../auth/Authenticate';
+import AppForm from '../components/AppForm';
+import AppSubmitButton from '../components/AppFormComponents/AppSubmitButton';
 import BetweenLines from '../components/BetweenLines';
 import ClickableText from '../components/ClickableText';
+
 function LoginScreen({navigation}) {
   const _alreadyLoggedIn = async () => {
     const ans = await alreadyLoggedIn();
@@ -23,39 +23,39 @@ function LoginScreen({navigation}) {
       navigation.navigate(strings.DASHBOARD);
     }
   };
+
   useEffect(() => {
     _alreadyLoggedIn();
   }, []);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+
+  let userSchema = object({
+    password: string().required('Password is required').label('Password'),
+    username: string().required('Username is required').label('Username'),
+  });
+
+  const _handleSubmit = async credentials => {
+    const res = await loginNormal({...credentials});
+    console.log(res);
+    if (res.success) {
+      navigation.navigate(strings.DASHBOARD);
+    }
+  };
 
   return (
     <Screen style={styles.container} isScrollable>
       <Text style={styles.title}>{strings.LOGIN}</Text>
-      <TextInput
-        placeholder={strings.USERNAME}
-        onChangeText={newText => {
-          setUsername(newText);
-        }}
-        value={username}
-      />
-      <TextInput
-        placeholder={strings.PASSWORD}
-        secureTextEntry
-        value={password}
-        onChangeText={newText => {
-          setPassword(newText);
-        }}
-      />
-      <Button
-        title={strings.LOGIN}
-        onPress={async () => {
-          const res = await loginNormal({username, password});
-          if (res.success) {
-            navigation.navigate(strings.DASHBOARD);
-          }
-        }}
-      />
+      <AppForm
+        validationSchema={userSchema}
+        initialValues={{username: undefined, password: undefined}}
+        onSubmit={_handleSubmit}>
+        <FormTextInput name={'username'} placeholder={strings.USERNAME} />
+        <FormTextInput
+          name={'password'}
+          placeholder={strings.PASSWORD}
+          secureTextEntry
+        />
+        <AppSubmitButton title={strings.LOGIN} />
+      </AppForm>
       <BetweenLines text={strings.orLoginWith} />
       <View style={styles.optionsContainer}>
         <View style={styles.space} />
@@ -63,7 +63,6 @@ function LoginScreen({navigation}) {
           image={assets.googleIcon}
           onPress={async () => {
             const res = await loginWithGoogle();
-
             if (res.success) {
               navigation.navigate(strings.DASHBOARD);
             }

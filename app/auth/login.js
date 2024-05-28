@@ -12,9 +12,13 @@ const login = async credentials => {
       endpoint,
       JSON.stringify(credentials),
     );
-
     const token = response?.data?.token;
-    answer = await StoreValue('token', token, true);
+    if (token) {
+      answer = await StoreValue('token', token, true);
+    } else {
+      answer.message = response?.problem;
+      answer.success = 'Something went wrong';
+    }
   } catch (error) {
     answer.success = false;
     answer.message = 'Login Failed, check credentials';

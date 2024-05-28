@@ -1,15 +1,12 @@
 import {
   DrawerContentScrollView,
   DrawerItem,
-  DrawerItemList,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
+import {logout} from '../auth/Authenticate';
 import {strings} from '../config';
 import ProductsList from '../screen/ProductsList';
 import SearchScreen from '../screen/SearchScreen';
-import {Text} from '../components';
-import {View} from 'react-native';
-import {logout} from '../auth/Authenticate';
 
 const Drawer = createDrawerNavigator();
 
