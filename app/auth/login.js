@@ -17,7 +17,7 @@ const login = async credentials => {
       answer = await StoreValue('token', token, true);
     } else {
       answer.message = response?.problem;
-      answer.success = 'Something went wrong';
+      answer.success = false;
     }
   } catch (error) {
     answer.success = false;

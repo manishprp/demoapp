@@ -23,6 +23,7 @@ function AppTextInput({
         />
       )}
       <TextInput
+      
         {...textInputProps}
         placeholder={placeholder}
         style={[styles.text, textStyle]}

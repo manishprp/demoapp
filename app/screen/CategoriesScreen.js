@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Text} from '../components';
-import {color} from '../config';
 import listing from '../api/listings';
+import {AppActivityIndicator, Text} from '../components';
+import {color} from '../config';
 import useApi from '../hooks/useApi';
-import AppActivityIndicator from '../components/AppActivityIndicator';
 
 _renderItem = ({item}) => (
   <TouchableOpacity style={{flex: 1}} onPress={() => console.log(item)}>

@@ -1,9 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import listings from '../api/listings';
-import AppActivityIndicator from '../components/AppActivityIndicator';
-import CardItem from '../components/CardItem';
-import SearchBox from '../components/SearchBox';
+import {AppActivityIndicator, CardItem, SearchBox} from '../components';
 import useApi from '../hooks/useApi';
 
 function SearchScreen(props) {

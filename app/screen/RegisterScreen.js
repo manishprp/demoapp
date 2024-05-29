@@ -3,9 +3,7 @@ import {StyleSheet} from 'react-native';
 import {Button, Screen, Text} from '../components';
 import {color, strings} from '../config';
 
-import AppDropDown from '../components/AppDropDown';
-import FormTextInput from '../components/AppFormComponents/FormTextInput';
-import ClickableText from '../components/ClickableText';
+import {AppDropDown, ClickableText, FormTextInput} from '../components';
 function RegisterScreen({navigation}) {
   return (
     <Screen style={styles.container} isScrollable>

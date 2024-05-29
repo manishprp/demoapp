@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {color} from '../config';
 
-function CardItem({item}) {
+function CardItem({item, onPress}) {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View style={styles.card}>
       {item?.images[0] && (
         <Image
@@ -18,6 +19,7 @@ function CardItem({item}) {
       <Text style={styles.price}>${item?.price}</Text>
       <Text style={styles.description}>{item?.description}</Text>
     </View>
+    </TouchableOpacity>
   );
 }
 

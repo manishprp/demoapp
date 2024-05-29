@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import listings from '../api/listings';
-import CardItem from '../components/CardItem';
+import {AppActivityIndicator, CardItem} from '../components';
 import {color} from '../config';
 import useApi from '../hooks/useApi';
-import AppActivityIndicator from '../components/AppActivityIndicator';
 
 _renderItem = ({item}) => <CardItem item={item} />;
 

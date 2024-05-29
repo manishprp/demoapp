@@ -1,20 +1,22 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ClickableRoundImage, Screen, Text} from '../components';
-
-import FormTextInput from '../components/AppFormComponents/FormTextInput';
-import {assets, color, strings} from '../config';
-
 import {object, string} from 'yup';
+
+import {
+  BetweenLines,
+  ClickableRoundImage,
+  ClickableText,
+  FormTextInput,
+  Screen,
+  SubmitButtom,
+  Text,
+} from '../components';
+import {assets, color, strings} from '../config';
 import {
   alreadyLoggedIn,
   loginNormal,
   loginWithGoogle,
 } from '../auth/Authenticate';
-import AppForm from '../components/AppForm';
-import AppSubmitButton from '../components/AppFormComponents/AppSubmitButton';
-import BetweenLines from '../components/BetweenLines';
-import ClickableText from '../components/ClickableText';
 
 function LoginScreen({navigation}) {
   const _alreadyLoggedIn = async () => {
@@ -35,7 +37,6 @@ function LoginScreen({navigation}) {
 
   const _handleSubmit = async credentials => {
     const res = await loginNormal({...credentials});
-    console.log(res);
     if (res.success) {
       navigation.navigate(strings.DASHBOARD);
     }
@@ -44,21 +45,27 @@ function LoginScreen({navigation}) {
   return (
     <Screen style={styles.container} isScrollable>
       <Text style={styles.title}>{strings.LOGIN}</Text>
+
       <AppForm
         validationSchema={userSchema}
         initialValues={{username: undefined, password: undefined}}
         onSubmit={_handleSubmit}>
         <FormTextInput name={'username'} placeholder={strings.USERNAME} />
+
         <FormTextInput
           name={'password'}
           placeholder={strings.PASSWORD}
           secureTextEntry
         />
-        <AppSubmitButton title={strings.LOGIN} />
+
+        <SubmitButtom title={strings.LOGIN} />
       </AppForm>
+
       <BetweenLines text={strings.orLoginWith} />
+
       <View style={styles.optionsContainer}>
         <View style={styles.space} />
+
         <ClickableRoundImage
           image={assets.googleIcon}
           onPress={async () => {
@@ -68,12 +75,18 @@ function LoginScreen({navigation}) {
             }
           }}
         />
+
         <View style={styles.space} />
+
         <ClickableRoundImage image={assets.metaIcon} />
+
         <View style={styles.space} />
+
         <ClickableRoundImage image={assets.appleIcon} />
+
         <View style={styles.space} />
       </View>
+
       <ClickableText
         onPress={() => {
           navigation.navigate(strings.REGISTER);
@@ -107,4 +120,5 @@ const styles = StyleSheet.create({
   },
   text: {position: 'absolute', bottom: 10, alignSelf: 'center'},
 });
+
 export default LoginScreen;
